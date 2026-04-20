@@ -29,3 +29,11 @@
   - [Shellhooks and Toolchain support](./ch06-06-building-packages-for-other-toolchains.md)
   - [Patching](./ch06-08-patching.md)
   - [Multiple Outputs](./ch06-09-multiple-outputs.md)
+
+- [Build Helpers](./ch07-00-build-helpers.md)
+  - [Autotools](./ch07-01-autotools.md)
+  - [CMake](./ch07-02-cmake.md)
+  - [Meson](./ch07-03-meson.md)
+  - [Python](./ch07-04-python.md)
+  - [Rust](./ch07-05-rust.md)
+  - [Go](./ch07-06-go.md)
