@@ -5,4 +5,4 @@ src = "src"
 title = "Nix-Book"
 
 [output.html]
-git-repository-url = "https://github.com/divnix/nix-book"
+git-repository-url = "https://github.com/ekala-project/nix-book"

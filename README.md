@@ -1,7 +1,7 @@
 # nix-book
 The Nix Package Manager
 
-Rendered book can be found at https://book.divnix.com/
+Rendered book can be found at https://ekala-project.github.io/nix-book/
 
 This book is heavily inspired by the [rust-lang/book](https://doc.rust-lang.org/stable/book/) and serves to provide new Nix users a quick introduction to fundamental Nix concepts.
 
