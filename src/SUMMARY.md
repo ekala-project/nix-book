@@ -38,3 +38,13 @@
   - [Rust](./ch07-05-rust.md)
   - [Go](./ch07-06-go.md)
   - [Trivial Builders](./ch07-07-trivial-builders.md)
+
+- [NixOS Modules](./ch08-00-nixos-modules.md)
+  - [The Module System](./ch08-01-module-system.md)
+  - [Options](./ch08-02-options.md)
+  - [Option Types](./ch08-03-option-types.md)
+  - [Config](./ch08-04-config.md)
+  - [Imports](./ch08-05-imports.md)
+  - [Merging and Precedence](./ch08-06-merging-and-precedence.md)
+  - [Writing a Module](./ch08-07-writing-a-module.md)
+  - [Testing Modules](./ch08-08-testing-modules.md)
