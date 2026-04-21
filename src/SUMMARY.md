@@ -37,3 +37,4 @@
   - [Python](./ch07-04-python.md)
   - [Rust](./ch07-05-rust.md)
   - [Go](./ch07-06-go.md)
+  - [Trivial Builders](./ch07-07-trivial-builders.md)
