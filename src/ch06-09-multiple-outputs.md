@@ -304,9 +304,9 @@ stdenv.mkDerivation {
 
 ### Why placeholder Is Needed
 
-During the build, output paths aren't yet determined. The hash of the output depends
-on the build inputs and process. Using `$dev` directly might expand to an empty
-string or incorrect value during early build phases.
+During evaluation and before the build, output paths aren't yet determined. The hash of the output depends
+on the build inputs and process, thus you have a circular problem of steps which influence the output, and output influences the build.
+Using `$dev` directly will only work if resolving `dev` is deferred to build time.
 
 `placeholder` generates a temporary string that stdenv replaces with the actual
 output path at the right time.
@@ -316,7 +316,7 @@ output path at the right time.
 ```nix
 outputs = [ "out" "dev" "lib" ];
 
-# In configure flags
+# In configure flags, these are escaped before passed to `./configure`
 configureFlags = [
   "--prefix=${placeholder "out"}"
   "--includedir=${placeholder "dev"}/include"
@@ -329,27 +329,18 @@ cmakeFlags = [
   "-DCMAKE_INSTALL_INCLUDEDIR=${placeholder "dev"}/include"
 ];
 
-# In makeFlags
-makeFlags = [
-  "PREFIX=${placeholder "out"}"
-  "INCLUDEDIR=${placeholder "dev"}/include"
-];
+# In passthru, these are not aware of the build and purely exist in evaluation
+passthru.EXAMPLE_HOME="${placeholder "out"}/share";
 ```
 
 ### When NOT to Use placeholder
 
-You don't need `placeholder` in phases that run after the outputs are created:
+You don't need `placeholder` in any phase, as outputs should be assigned during build environment creation by nix:
 
 ```nix
 outputs = [ "out" "dev" ];
 
-# GOOD: installPhase runs late, $dev is available
-installPhase = ''
-  mkdir -p $dev/include
-  cp *.h $dev/include/
-'';
-
-# GOOD: postInstall also has outputs available
+# GOOD: postInstall also has outputs available, may need to `mkdir $dev` if installation logic doesn't already do this
 postInstall = ''
   moveToOutput "include" "$dev"
 '';
@@ -357,15 +348,18 @@ postInstall = ''
 
 ## Advanced Multiple Output Patterns
 
-    # User-facing binaries stay in out
-    # (out is the default, so users get these)
+Hide rarely used commands in the bin output, only encouraged if they greatly
+increase the closure size. Generally this is a poor user experience.
 
-    # Developer tools go to bin
+```nix
+  # User-facing binaries stay in out
+  # (out is the default, so users get these)
+  # Developer tools go to bin
+  postInstall = ''
     mkdir -p $bin/bin
     mv $out/bin/toolkit-config $bin/bin/
     mv $out/bin/toolkit-debug $bin/bin/
   '';
-}
 ```
 
 ### Libraries with Optional Features
@@ -406,8 +400,8 @@ $ nix-instantiate --eval -E 'with import <nixpkgs> {}; openssl.outputs'
 
 ```bash
 $ nix-build '<nixpkgs>' -A openssl.dev
-$ tree result/
-result/
+$ tree result-dev/
+result-dev/
 ├── include
 │   └── openssl
 │       ├── aes.h
@@ -491,7 +485,7 @@ postInstall = ''
 
 Outputs should form a directed acyclic graph (DAG). Typically:
 - `dev` can reference `out` or `lib`
-- `out` should not reference `dev`
+- `out` should not reference `dev`, referencing `bin` is frowned upon
 - `bin` can reference `lib` or `out`
 
 ### Not using dev with propagated inputs
