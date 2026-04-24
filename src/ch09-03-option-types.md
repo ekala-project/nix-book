@@ -188,21 +188,95 @@ Each attribute is independently validated against the submodule's options.
 
 ### Submodule as a function
 
-When a submodule needs access to the outer `config` or `pkgs`, pass a function
+When values within a submodule need to be referenced, one can pass a function
 instead of an attribute set:
 
 ```nix
 type = lib.types.submodule ({ config, pkgs, ... }: {
   options = {
     package = lib.mkPackageOption pkgs "nginx" { };
+    host = lib.mkOption {
+      type    = lib.types.str;
+      description = "Backend hostname.";
+    };
     configFile = lib.mkOption {
       type     = lib.types.path;
       readOnly = true;
+      default = pkgs.writeText "nginx.conf" "... ${config.host} ...";
     };
   };
-  config.configFile = pkgs.writeText "nginx.conf" "...";
-});
 ```
+
+## freeformType
+
+Declaring an explicit option for every possible configuration key is sometimes
+impractical — particularly when wrapping an upstream tool that has dozens of
+settings, most of which users will never touch. `freeformType` solves this by
+letting a submodule accept arbitrary undeclared attributes, merging them
+according to a specified type, while still providing typed, documented options
+for the settings that matter most.
+
+It is set inside a submodule using a `pkgs.formats` value as the type.
+`pkgs.formats` provides ready-made types for common configuration file formats,
+and each format's `.type` attribute is suitable for use as a `freeformType`:
+
+```nix
+{ config, lib, pkgs, ... }:
+
+let
+  settingsFormat = pkgs.formats.json { };
+in
+{
+  options.services.myapp.settings = lib.mkOption {
+    type = lib.types.submodule {
+      freeformType = settingsFormat.type;
+
+      # Explicitly declared options are still fully typed and documented
+      options.port = lib.mkOption {
+        type    = lib.types.port;
+        default = 8080;
+        description = "Port the server listens on.";
+      };
+    };
+    default = { };
+    description = "Settings passed directly to myapp's JSON configuration file.";
+  };
+
+  config = lib.mkIf config.services.myapp.enable {
+    # Serialise the entire settings attrset to JSON — declared and freeform alike
+    environment.etc."myapp/config.json".source =
+      settingsFormat.generate "myapp-config.json" config.services.myapp.settings;
+  };
+}
+```
+
+A user can then set both declared and arbitrary keys:
+
+```nix
+services.myapp.settings = {
+  port        = 9000;      # declared option — type-checked
+  max_workers = 4;         # undeclared — accepted via freeformType
+  log_format  = "json";   # undeclared — accepted via freeformType
+};
+```
+
+Declared options take precedence and provide type safety and documentation.
+Undeclared attributes are merged using `freeformType` and passed through
+transparently.
+
+Using `pkgs.formats` is the idiomatic nixpkgs approach because the same format
+value that defines the type also provides the `generate` function that
+serialises `settings` to the correct file format. The module author does not
+need to write a custom serialiser — the format handles both validation and
+output. Other available formats include `pkgs.formats.toml`, `pkgs.formats.yaml`,
+`pkgs.formats.ini`, and `pkgs.formats.keyValue`.
+
+### Limitations
+
+Freeform attributes cannot reference other options or produce computed values —
+they are accepted as-is and merged by the freeform type. If a setting requires
+validation or interaction with the rest of the module, declare it as an
+explicit option instead.
 
 ## Type composition patterns
 
@@ -238,4 +312,5 @@ type = lib.types.listOf (lib.types.submodule {
 | List accumulated from modules | `listOf T` |
 | Named records | `attrsOf (submodule ...)` |
 | Structured nested config | `submodule { ... }` |
+| Settings for config file | `submodule { freeformType = ...; ... }` |
 | Arbitrary pass-through | `anything` |
