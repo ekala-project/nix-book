@@ -106,7 +106,7 @@ graph* (DAG) of how to built that software from source.
 ## Nixpkgs: The Package Repository
 
 Nixpkgs is the official package repository for the Nix community. It contains the logic
-on how to build over 60,000+ software packages. Nixpkgs can be thought of as an
+on how to build over 100,000+ software packages. Nixpkgs can be thought of as an
 expert body-of-knowledge on the subject of how to build software. When a user
 asks for the "firefox" package, the Nix package manager is able to query Nixpkgs
 and produce a build graph on how to build Firefox and all of its dependencies down
