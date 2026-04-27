@@ -78,17 +78,20 @@ Here are frequently-used CMake variables that control the build:
 
 **Build type:**
 ```nix
+# Expected usage
 cmakeFlags = [
   "-DCMAKE_BUILD_TYPE=Release"  # Release, Debug, RelWithDebInfo, MinSizeRel
 ];
-```
 
-Note: nixpkgs usually sets this automatically based on `enableDebugging`.
+# Build Type is handled as a special case so that it can always be appended last
+# Multiple definitions of build type will only have the last occurance honored.
+cmakeBuildType = "Release";
+```
 
 **Disable tests:**
 ```nix
 cmakeFlags = [
-  "-DBUILD_TESTING=OFF"  # Standard CMake variable
+  "-DBUILD_TESTING=OFF"  # Standard CMake variable, `doCheck = false;` also sets this
   "-DENABLE_TESTS=OFF"   # Some projects use this instead
 ];
 ```
@@ -110,7 +113,7 @@ cmakeFlags = [
 ];
 ```
 
-These are usually set correctly by default, but some packages may need explicit values.
+These are usually set correctly by the cmake setup hook, but some packages may need project-specific values.
 
 ## Using Ninja instead of Make
 
