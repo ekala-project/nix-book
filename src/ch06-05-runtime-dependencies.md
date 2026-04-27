@@ -217,8 +217,6 @@ stdenv.mkDerivation {
 
 Now when `myscript` runs, the wrapper automatically adds `grep`, `sed`, and `sort` to `PATH`.
 
-TODO: link to dedicated `wrapProgram` page.
-
 ### Example: Python Script with Dependencies
 
 A Python script that imports external modules:
@@ -597,7 +595,11 @@ $ ./result/bin/myapp
 error while loading shared libraries: libfoo.so.1: cannot open shared object file
 ```
 
-TODO: Link to dedicated page about handling library resolution
+This means that the binary didn't have a library search path which included the library in question.
+Specifically, there was a `DT_NEEDED` entry for `libfoo.so.1` but there wasn't a
+path in `DT_RUNPATH` which contained such a library. Please see
+[binary patching](./ch06-08-patching.md#binary-patching-patchelf-and-autopatchelfhook) on
+fixing binary files to work with nix.
 
 ### Program Executes but Can't Find Helper Tools
 

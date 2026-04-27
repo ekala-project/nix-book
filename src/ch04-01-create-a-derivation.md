@@ -20,10 +20,10 @@ $ nix eval nixpkgs#hello.drvPath
 
 ## Inspect the contents of a derivation
 
-To inspect the contents of the drv, one can use the `nix show-derivation` utility.
+To inspect the contents of the drv, one can use the `nix derivation show` (previously, `nix show-derivation`) utility.
 
 ```
-$ nix show-derivation /nix/store/byqskk0549v1zz1b2a61lb7llfn4h5bw-hello-2.10.drv
+$ nix derivation show /nix/store/byqskk0549v1zz1b2a61lb7llfn4h5bw-hello-2.10.drv
 {
   "/nix/store/byqskk0549v1zz1b2a61lb7llfn4h5bw-hello-2.10.drv": {
     "outputs": {
@@ -36,9 +36,9 @@ $ nix show-derivation /nix/store/byqskk0549v1zz1b2a61lb7llfn4h5bw-hello-2.10.drv
 ## Defining characteristics of a derivation
 
 There's a few important features of a derivation:
-- It's a description of how to build the package from source
+- It's a description of how to build the package, generally from source
 - The output paths are determined before the build begins
-- All dependencies are resolved as part of instantiation, and may have a similar derivation description of their builds
+- All dependencies are resolved as part of instantiation, and may have a similar derivation descriptions of their dependencies
 - Any additional flags (makeFlags, configuration flags, cflags, or ld flags) are explicitly stated
 - There's no ambiguity. The system, architecture, and other options have been resolved.
 - It's immutable. If you want to change a derivation, you need to evaluate a new one.
