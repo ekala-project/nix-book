@@ -196,3 +196,32 @@ passing them through `nixosSystem`:
 The `modules` argument to `nixosSystem` is equivalent to a top-level `imports`
 list. All modules passed here are merged together with the NixOS module
 collection.
+
+# [Dendritic pattern](https://discourse.nixos.org/t/the-dendritic-pattern/61271)
+
+Instead of using `specialArgs` or configuring imports, the module system does allow
+for arbitrary options to be defined, thus using the local vs remote example earlier:
+
+```nix
+# modules/common.nix
+{
+  # option which is now available in all modules
+  options.isLocalSystem = lib.mkEnableOption { };
+}
+
+# modules/packages.nix
+{
+  config.programs.steam.enable = config.isLocalSystem;
+}
+```
+
+The advantage of the dendritic paradigm is that you have finer granular toggles
+which can be used to configure options. So cross cutting concerns like 
+"enable some shared database for many services" can have a separate toggle which
+then your other modules can respect.
+
+NixOS modules coming from nixpkgs don't have the luxury to know how they will be
+used so they are often very verbose and expose a lot of options which may or may
+not be relevant to a use case. The Dendritic pattern lies between these vanilla option
+modules and specialized profiles, allowing for a middle ware of grouping concerns
+which are common across many different configurations.
