@@ -1,7 +1,7 @@
 # Rust
 
 Rust has become increasingly popular for systems programming, offering memory safety
-without garbage collection. Rust is a favorite amongst many for it's safety, speed,
+without garbage collection. Rust is a favorite amongst many for its safety, speed,
 and correctness qualities.
 
 ## Rust and Nix: special concerns

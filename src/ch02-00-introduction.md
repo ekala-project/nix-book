@@ -10,14 +10,14 @@ the source code is downloaded, configuration flags, patches,
 dependencies, build steps, installation steps, and many other potential inputs.
 
 This information is hashed, which allows Nix to
-describe and reference the exact software which is intended to use.
+describe and reference the exact software which is intended to be used.
 This enables Nix to be used on any system because its assumptions
 do not collide with the assumptions of a host system. This means that
 Nix does not adhere to the traditional [File Hierarchical System (FHS)][fhs]
 but it also means that it's not limited to FHS's restriction of only having
 a single variant of a piece of software: You can have multiple versions of
 the same software installed, or the same version installed twice compiled with
-two different set of compile flags without conflict.
+two different sets of compile flags without conflict.
 
 [fhs]: https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 
@@ -67,7 +67,7 @@ this across multiple machines.
 
 There's roughly four layers of abstractions in the official Nix ecosystem, these are:
 
-- Nix - The domain-specifc language used to write Nix expressions
+- Nix - The domain-specific language used to write Nix expressions
 - Nix - The package manager
 - Nixpkgs - The official Nix package repository
 - NixOS - A Linux distribution built on Nixpkgs
@@ -101,7 +101,7 @@ as loops and logic flow; so too does Nix attempt to tame the chaos of package ma
 through explicit descriptions of software and their dependencies. The truly novel idea
 of Nix is that of the *derivation*. It encapsulates everything about a piece of software,
 and these derivations can be referenced from other derivations constituting a *directed, acyclic
-graph* (DAG) of how to built that software from source.
+graph* (DAG) of how to build that software from source.
 
 ## Nixpkgs: The Package Repository
 

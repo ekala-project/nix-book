@@ -213,7 +213,7 @@ doCheck = false;
 
 # Disable only some tests
 checkInputs = [ pytestCheckHook ];
-disabledTest = [ "network" ];
+disabledTests = [ "network" ];
 ```
 
 ### Python version constraints

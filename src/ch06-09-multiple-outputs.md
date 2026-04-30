@@ -131,7 +131,7 @@ preInstall = ''
 ### Helper Functions
 
 Use nixpkgs helper functions for clearer intent. These will return the `out`
-output if the prefered output does not exist.
+output if the preferred output does not exist.
 
 ```nix
 { lib, openssl, curl, postgresql }:
@@ -421,7 +421,7 @@ result/
 
 ### Building all outputs
 
-In nix 1.0 and 2.0, there's a psuedo `all` attr which build all outputs:
+In nix 1.0 and 2.0, there's a pseudo `all` attr which build all outputs:
 
 ```
 $ nix-build -A openssl.all

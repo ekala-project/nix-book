@@ -1,9 +1,9 @@
 # Create a Derivation
 
 Before a package is built, a derivation must be created. The derivation can
-be thought of as the unamiguous definition of how to build a package.
-The process of creating a derivation  is called "instantiatiation",
-or sometimes also refered to as evaluation (although this is more general). Every package in
+be thought of as the unambiguous definition of how to build a package.
+The process of creating a derivation  is called "instantiation",
+or sometimes also referred to as evaluation (although this is more general). Every package in
 nixpkgs has a corresponding derivation. This means that we can
 create and inspect the derivation for anything exposed in nixpkgs. An example
 would be:

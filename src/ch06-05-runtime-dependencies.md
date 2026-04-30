@@ -60,7 +60,7 @@ Specifically, nix looks for the hash portion of store paths. A store path has th
 /nix/store/<32-character-hash>-<name>
 ```
 
-During the build completes, nix scans all files in each output for any
+When the build completes, nix scans all files in each output for any
 occurrence of the 32-character hash of dependencies that were available during the build.
 If found, that dependency is marked as a runtime dependency of the output.
 

@@ -220,7 +220,7 @@ find_package(OpenSSL REQUIRED)
 ```
 
 **Note:** `NIXPKGS_CMAKE_PREFIX_PATH` was patched into Nixpkgs' CMake search path
-traversal and now the prefered way to communicate nix dependencies. This was to
+traversal and now the preferred way to communicate nix dependencies. This was to
 avoid clobbering `CMAKE_PREFIX_PATH` which can be altered during a build.
 
 ### Other Build Systems

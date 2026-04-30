@@ -1,6 +1,6 @@
 # The Nix Package Manager
 
-*by Jonathan Ringer
+*by Jonathan Ringer*
 
 This book assumes usage of the nix 3.0 (flakes) cli.
 

@@ -60,7 +60,7 @@ array with elements `1` and `2`.
 
 ## Attribute Set (Attr set)
 
-This can be thought of as a dictionary or map in most other languages. The important distinct is that the
+This can be thought of as a dictionary or map in most other languages. The important distinction is that the
 keys are always ordered, so that the order doesn't influence how a derivation will produce a hash. Attr sets
 values do not need to be of the same type. Attr sets are constructed using an `=` sign which denotes key value
 pairs which are separated with semicolons `;`, the attr set is enclosed with curly braces `{ }`. Selection
@@ -162,5 +162,5 @@ by the nix expressions.
 
 Although laziness isn't a hard requirement for nix to work. The purity
 model of nix makes laziness more a symptom rather than an explicit design goal.
-However, It does enable many implicit benefits such as [memoization](https://en.wikipedia.org/wiki/Memoization).
+However, it does enable many implicit benefits such as [memoization](https://en.wikipedia.org/wiki/Memoization).
 

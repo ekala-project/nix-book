@@ -68,4 +68,4 @@ Its most common use case are "helpers", which only care about a
 subset of arguments, and will then call another function with some
 of the inputs pruned. A good example of this is the `pkgs.fetchFromGithub`
 fetcher; which will know how to translate owner, repo, rev, and
-other options into a call to `builtsin.fetchzip` or `builtins.fetchgit`.
+other options into a call to `builtins.fetchzip` or `builtins.fetchgit`.

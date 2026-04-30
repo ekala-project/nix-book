@@ -334,7 +334,7 @@ Copy the "got" hash to your expression.
 - Normalizes line endings
 - Removes trailing whitespace
 - Sorts git index lines
-- `fetchpatch` also allows for explicit includsion or exclusion of files.
+- `fetchpatch` also allows for explicit inclusion or exclusion of files.
 
 This makes patches more stable across different git versions and patch formats,
 but means the hash differs from the raw file hash.
@@ -561,7 +561,7 @@ Understanding the order of operations helps debug patching issues:
 
 1. **unpackPhase**: Extract the source
 2. **patchPhase**: Apply patches from `patches` attribute
-3. **postPatch**: Runhook ran after patches (ideal for `substituteInPlace`)
+3. **postPatch**: Run hook runs after patches (ideal for `substituteInPlace`)
 4. **configurePhase**: Run build system configuration
 5. ...rest of build
 

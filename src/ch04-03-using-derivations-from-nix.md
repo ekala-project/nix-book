@@ -4,7 +4,7 @@ The derivation is the main abstraction of nix. All of
 Nixpkgs and NixOS is created by leveraging derivations
 to create new derivations, scripts, services, and even
 entire linux distributions. The ability to compose these
-usecases with uniquely named packages allows nix the
+use cases with uniquely named packages allows nix the
 freedom to aggressively share common dependencies, meanwhile
 allowing the flexibility to have potentially incompatible
 packages available on the system.
@@ -65,7 +65,7 @@ This is one of the oddities of nix, but stringification of
 an object which contains a key "outPath" will return
 the contents of the "outPath" key. Since all derivations
 will have an outPath, any usage of them in a string
-will yeild the store path that they create.
+will yield the store path that they create.
 
 ```nix
 nix-repl> a = { outPath = "foo"; }
