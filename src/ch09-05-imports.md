@@ -55,18 +55,73 @@ imports = [
 ## Conditional imports
 
 The module system evaluates `imports` before options, so you cannot use
-`config` values to decide what to import — the import list must be statically
+`config` values, and by extension `pkgs`, to decide what to import — the import list must be statically
 known. For conditional behaviour, use `mkIf` inside the imported module rather
 than importing conditionally.
 
 If you genuinely need to select between two modules based on some value, encode
 the condition in a Nix `if` expression using only values available before
-evaluation (such as `pkgs.stdenv.isLinux`):
+evaluation:
 
 ```nix
-imports = [
-  (if pkgs.stdenv.isLinux then ./linux.nix else ./darwin.nix)
-];
+{ config, ... }:
+
+{
+  imports = [
+    # Fails with infinite recursion. `pkgs` derives from `config.nixpkgs.pkgs` which creates
+    # a strong cycle between imports and config
+    (if pkgs.stdenv.isLinux then ./linux.nix else ./darwin.nix)
+  ];
+
+  # Better alternative, config can alter other config values
+  config.programs.steam.enable = pkgs.stdenv.hostPlatform.isLinux;
+}
+```
+
+If you truly want conditional imports, you must use `specialArgs` when evaluating the NixOS modules:
+``nix
+# flake.nix
+nixosConfigurations.work = nixpkgs.lib.nixosSystem rec {
+  system = "x86_64-linux";
+  specialArgs = { isLocal = true; };
+  modules = [
+    ./configuration.nix
+  ];
+};
+
+# In any module
+{ config, lib, pkgs, isLocal, ... }:
+
+{
+  imports = if isLocal then [
+    ./local-profile.nix
+  ] else [
+    ./remote-profile.nix
+  ];
+}
+```
+
+`specialArgs` can be thought of as defined before any module logic. Thus they exist
+outside of the fixed point resolution for `config`, `options`, or `pkgs`.
+
+**Note:** Often it is easier to just do all imports at the top-level, instead of branching logic in modules
+```nix
+# Alternative to do decision making at the module level, you can do it as the system level as well.
+nixosConfigurations.work = nixpkgs.lib.nixosSystem rec {
+  system = "x86_64-linux";
+  modules = [
+    ./shared-configuration.nix
+    ./local-profile.nix
+  ];
+};
+
+nixosConfigurations.remote = nixpkgs.lib.nixosSystem rec {
+  system = "x86_64-linux";
+  modules = [
+    ./shared-configuration.nix
+    ./remote-profile.nix
+  ];
+};
 ```
 
 ## Import order and duplicates
