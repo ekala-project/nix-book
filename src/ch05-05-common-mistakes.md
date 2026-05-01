@@ -15,8 +15,8 @@ a string
 
 ## Lists
 
-Functions and lists use whitespace to do function application,
-however, list element delimitation takes precedence over function application.
+Functions and lists use whitespace to do function application.
+However, list element delimitation takes precedence over function application.
 
 For example, if someone were to try and use optional python
 integration on a package, they may write something like:
