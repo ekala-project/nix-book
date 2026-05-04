@@ -79,7 +79,7 @@ evaluation:
 ```
 
 If you truly want conditional imports, you must use `specialArgs` when evaluating the NixOS modules:
-``nix
+```nix
 # flake.nix
 nixosConfigurations.work = nixpkgs.lib.nixosSystem rec {
   system = "x86_64-linux";
