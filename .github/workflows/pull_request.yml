@@ -3,7 +3,7 @@ name: Pull Request CI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build-and-check:
@@ -19,13 +19,17 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: Run all checks (markdown, TOML, links, build)
+      - name: Run all checks (markdown, TOML, build)
         run: |
-          nix flake check --print-build-logs --option sandbox false
+          nix flake check --print-build-logs
 
       - name: Build book
         run: |
           nix build --print-build-logs
+
+      - name: Check links
+        run: |
+          nix develop .#validate-links
 
       - name: Verify build artifacts
         run: |
