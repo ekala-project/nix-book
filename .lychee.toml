@@ -35,8 +35,8 @@ exclude = [
   "^#.*",
 ]
 
-# Include links in these file types
-include = ["*.html"]
+# Include links in these file types (glob patterns)
+# Lychee will automatically scan all HTML files in the provided path
 
 # Exclude checking files matching these patterns
 exclude_path = [

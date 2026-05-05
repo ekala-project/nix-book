@@ -2,6 +2,7 @@
 , lychee
 , book
 , lib
+, cacert
 }:
 
 stdenv.mkDerivation {
@@ -18,7 +19,10 @@ stdenv.mkDerivation {
         (baseName == ".lychee.toml");
   };
 
-  nativeBuildInputs = [ lychee ];
+  nativeBuildInputs = [ lychee cacert ];
+
+  # Set SSL_CERT_FILE for HTTPS requests
+  SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   buildPhase = ''
     # Run lychee on the built book HTML

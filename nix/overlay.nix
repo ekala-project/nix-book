@@ -20,12 +20,12 @@ final: prev: {
       echo "Available commands:"
       echo "  mdbook serve       - Start development server"
       echo "  mdbook build       - Build the book"
-      echo "  nix flake check    - Run all checks"
+      echo "  nix flake check    - Run all checks (links, markdown, TOML)"
       echo ""
       echo "Individual checks:"
-      echo "  lychee --config .lychee.toml book/     - Check links"
+      echo "  lychee --config .lychee.toml book/     - Check links (after building)"
       echo "  markdownlint --config .markdownlint.json 'src/**/*.md' - Lint markdown"
-      echo "  typos --config .typos.toml .           - Check spelling"
+      echo "  typos --config .typos.toml .           - Check spelling (optional)"
       echo "  taplo check book.toml                   - Validate TOML"
     '';
   };
