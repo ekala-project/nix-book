@@ -24,11 +24,10 @@
         checks = {
           inherit (legacyPackages) nix-book;
 
-          # Link checking (requires network access, run manually or in CI)
-          # Enable manually with: nix build .#checks.x86_64-linux.link-check
-          # link-check = legacyPackages.callPackage ./nix/checks/link-check.nix {
-          #   book = legacyPackages.nix-book;
-          # };
+          # Link checking (requires network access, enable for CI)
+          link-check = legacyPackages.callPackage ./nix/checks/link-check.nix {
+            book = legacyPackages.nix-book;
+          };
 
           # Markdown linting
           markdown-lint = legacyPackages.callPackage ./nix/checks/markdown-lint.nix {};

@@ -19,17 +19,13 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: Run all checks
+      - name: Run all checks (markdown, TOML, links, build)
         run: |
-          nix flake check --print-build-logs
+          nix flake check --print-build-logs --option sandbox false
 
       - name: Build book
         run: |
           nix build --print-build-logs
-
-      - name: Check links
-        run: |
-          nix run nixpkgs#lychee -- --config .lychee.toml result/
 
       - name: Verify build artifacts
         run: |
