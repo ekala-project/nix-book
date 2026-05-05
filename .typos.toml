@@ -1,51 +1,7 @@
-[default]
-extend-ignore-re = [
-  # Ignore code blocks that might contain intentional "typos"
-  "```[\\s\\S]*?```",
-]
-
 [default.extend-words]
-# Nix-specific terms
-derivations = "derivations"
-nixpkgs = "nixpkgs"
-stdenv = "stdenv"
-fetchurl = "fetchurl"
-mkDerivation = "mkDerivation"
-buildInputs = "buildInputs"
-nativeBuildInputs = "nativeBuildInputs"
-propagatedBuildInputs = "propagatedBuildInputs"
-patchPhase = "patchPhase"
-configurePhase = "configurePhase"
-buildPhase = "buildPhase"
-installPhase = "installPhase"
-checkPhase = "checkPhase"
-fixupPhase = "fixupPhase"
-shellHook = "shellHook"
-outPath = "outPath"
-NixOS = "NixOS"
-flake = "flake"
-flakelight = "flakelight"
-alejandra = "alejandra"
-callPackage = "callPackage"
-overrideAttrs = "overrideAttrs"
-builtins = "builtins"
-pkgs = "pkgs"
-mkShell = "mkShell"
-devShell = "devShell"
-disko = "disko"
-devenv = "devenv"
-lanzaboote = "lanzaboote"
-nixfmt = "nixfmt"
-FODs = "FODs"  # Fixed Output Derivations
-
-# Technical writing terms
-repo = "repo"
-config = "config"
-configs = "configs"
-util = "util"
-utils = "utils"
-CLI = "CLI"
-timestamp = "timestamp"
+FODs = "FODs"
+hda = "hda"
+crypted = "crypted"
 
 [files]
 extend-exclude = [

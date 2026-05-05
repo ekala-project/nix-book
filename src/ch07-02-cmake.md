@@ -84,7 +84,7 @@ cmakeFlags = [
 ];
 
 # Build Type is handled as a special case so that it can always be appended last
-# Multiple definitions of build type will only have the last occurance honored.
+# Multiple definitions of build type will only have the last occurrence honored.
 cmakeBuildType = "Release";
 ```
 

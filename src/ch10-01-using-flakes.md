@@ -184,7 +184,7 @@ outputs = { self, nixpkgs, home-manager }:
   };
 ```
 
-Some newer flake libraries are moving toward this pattern to avoid unnecessary instantation. But the only way to get rid of featching the extra inputs still relies heavily on `follows`.
+Some newer flake libraries are moving toward this pattern to avoid unnecessary instantiation. But the only way to get rid of fetching the extra inputs still relies heavily on `follows`.
 
 ## Common flake patterns and templates
 
@@ -491,7 +491,7 @@ packages = forAllSystems (system: {
 });
 ```
 
-**Note:** This is a common criticism of flakes, that there are many potentially supported systems which are artifically pruned by this as it acts also as a system filter.
+**Note:** This is a common criticism of flakes, that there are many potentially supported systems which are artificially pruned by this as it acts also as a system filter.
 
 ### Circular follows
 
