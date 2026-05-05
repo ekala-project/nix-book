@@ -18,15 +18,16 @@ final: prev: {
     shellHook = ''
       echo "Nix Book development environment"
       echo "Available commands:"
-      echo "  mdbook serve       - Start development server"
-      echo "  mdbook build       - Build the book"
-      echo "  nix flake check    - Run all checks (links, markdown, TOML)"
+      echo "  mdbook serve              - Start development server"
+      echo "  mdbook build              - Build the book"
+      echo "  nix flake check           - Run all checks (markdown, TOML, build)"
+      echo "  nix develop .#validate-links - Check for broken links (requires network)"
       echo ""
       echo "Individual checks:"
-      echo "  lychee --config .lychee.toml book/     - Check links (after building)"
       echo "  markdownlint --config .markdownlint.json 'src/**/*.md' - Lint markdown"
       echo "  typos --config .typos.toml .           - Check spelling (optional)"
       echo "  taplo check book.toml                   - Validate TOML"
+      echo "  lychee --config .lychee.toml book/     - Check links manually"
     '';
   };
 }

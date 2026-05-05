@@ -17,17 +17,15 @@
         };
         packages = utils.lib.flattenTree {
           inherit (legacyPackages) devShell nix-book;
+          validate-links = legacyPackages.callPackage ./nix/checks/link-check.nix {
+            book = legacyPackages.nix-book;
+          };
         };
         defaultPackage = packages.nix-book;
         apps.nix-book = utils.lib.mkApp {drv = packages.nix-book;};
         hydraJobs = {inherit (legacyPackages) nix-book;};
         checks = {
           inherit (legacyPackages) nix-book;
-
-          # Link checking (requires network access, enable for CI)
-          link-check = legacyPackages.callPackage ./nix/checks/link-check.nix {
-            book = legacyPackages.nix-book;
-          };
 
           # Markdown linting
           markdown-lint = legacyPackages.callPackage ./nix/checks/markdown-lint.nix {};

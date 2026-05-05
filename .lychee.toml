@@ -33,6 +33,13 @@ exclude = [
 
   # Anchors only (local page references)
   "^#.*",
+
+  # nixos.wiki blocks automated requests (bot protection)
+  "https://nixos\\.wiki/.*",
+
+  # Adobe website (slow/timeout issues in font license)
+  "http://www\\.adobe\\.com/.*",
+  "https://www\\.adobe\\.com/.*",
 ]
 
 # Include links in these file types (glob patterns)
@@ -40,7 +47,8 @@ exclude = [
 
 # Exclude checking files matching these patterns
 exclude_path = [
-  "book/print.html",  # Print version often has duplicate content
+  "print.html",  # Print version often has duplicate content
+  "404.html",     # 404 error page has root-relative links
 ]
 
 # Don't fail on network errors for these domains (optional)
