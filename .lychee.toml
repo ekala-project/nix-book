@@ -1,0 +1,56 @@
+# Lychee link checker configuration for nix-book
+
+# Check all files in the book output directory
+# This will be run on the built HTML output from mdbook
+
+# Maximum number of concurrent network requests
+max_concurrency = 10
+
+# Maximum number of retries per request
+max_retries = 3
+
+# Wait time between retries (in seconds)
+retry_wait_time = 2
+
+# Timeout per request (in seconds)
+timeout = 30
+
+# Accept status codes
+accept = [200, 204, 206, 301, 302, 307, 308, 429]
+
+# Exclude URLs matching these patterns
+exclude = [
+  # Localhost and example domains
+  "http://localhost.*",
+  "http://127\\.0\\.0\\.1.*",
+  "https://example\\.com.*",
+
+  # GitHub edit links (require authentication)
+  "https://github\\.com/.*/edit/.*",
+
+  # Private/internal URLs
+  "file://.*",
+
+  # Anchors only (local page references)
+  "^#.*",
+]
+
+# Include links in these file types
+include = ["*.html"]
+
+# Exclude checking files matching these patterns
+exclude_path = [
+  "book/print.html",  # Print version often has duplicate content
+]
+
+# Don't fail on network errors for these domains (optional)
+# exclude_all_private = false
+
+# Check files even if they are excluded by .gitignore
+# include_verbatim = false
+
+# Base URL to use for relative links (mdbook builds use relative paths)
+# base = "https://ekala-project.github.io/nix-book/"
+
+# User agent string
+user_agent = "lychee/nix-book-link-checker"

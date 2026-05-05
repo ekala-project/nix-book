@@ -21,7 +21,23 @@
         defaultPackage = packages.nix-book;
         apps.nix-book = utils.lib.mkApp {drv = packages.nix-book;};
         hydraJobs = {inherit (legacyPackages) nix-book;};
-        checks = {inherit (legacyPackages) nix-book;};
+        checks = {
+          inherit (legacyPackages) nix-book;
+
+          # Link checking
+          link-check = legacyPackages.callPackage ./nix/checks/link-check.nix {
+            book = legacyPackages.nix-book;
+          };
+
+          # Markdown linting
+          markdown-lint = legacyPackages.callPackage ./nix/checks/markdown-lint.nix {};
+
+          # Spell checking
+          spell-check = legacyPackages.callPackage ./nix/checks/spell-check.nix {};
+
+          # TOML validation
+          toml-check = legacyPackages.callPackage ./nix/checks/toml-check.nix {};
+        };
       };
     in
       utils.lib.eachSystem systems forSystem // { overlay = localOverlay; };
