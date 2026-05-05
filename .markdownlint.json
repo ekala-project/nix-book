@@ -1,0 +1,19 @@
+{
+  "default": true,
+  "line-length": false,
+  "no-duplicate-heading": false,
+  "no-trailing-punctuation": false,
+  "no-inline-html": false,
+  "no-bare-urls": false,
+  "first-line-heading": false,
+  "blanks-around-headings": false,
+  "blanks-around-lists": false,
+  "single-h1": false,
+  "no-emphasis-as-heading": true,
+  "no-hard-tabs": true,
+  "no-reversed-links": true,
+  "no-multiple-blanks": {
+    "maximum": 2
+  },
+  "commands-show-output": false
+}

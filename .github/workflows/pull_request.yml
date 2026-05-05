@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -16,15 +16,21 @@ jobs:
         uses: cachix/install-nix-action@v27
         with:
           nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
 
-      - name: Build book with mdBook
+      - name: Run all checks
         run: |
-          nix-shell '<nixpkgs>' -p mdbook --command 'mdbook build'
+          nix flake check --print-build-logs
 
-      - name: Check for build artifacts
+      - name: Build book
         run: |
-          if [ ! -d "book" ] || [ ! -f "book/index.html" ]; then
+          nix build --print-build-logs
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "result" ] || [ ! -f "result/index.html" ]; then
             echo "Error: Build did not produce expected output"
             exit 1
           fi
-          echo "✓ Book built successfully"
+          echo "✓ Book built successfully and all checks passed"
