@@ -1,6 +1,6 @@
 # Using Flakes
 
-This chapter covers practical workflows for using flakes in real-world projects. For the basics of what flakes are and their structure, see [Chapter 8.4](./ch08-04-flakes.md).
+This chapter covers practical workflows for using flakes in real-world projects. For the basics of what flakes are and their structure, see [Chapter 6.4](./ch08-04-flakes.md).
 
 ## Creating and structuring flakes
 
